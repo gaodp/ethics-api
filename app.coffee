@@ -4,6 +4,8 @@ favicon = require('serve-favicon')
 logger = require('morgan')
 cookieParser = require('cookie-parser')
 bodyParser = require('body-parser')
+MongoClient = require('mongodb').MongoClient
+requireFu = require('require-fu')
 
 app = express()
 
@@ -19,6 +21,7 @@ app.use bodyParser.urlencoded extended: false
 app.use cookieParser()
 app.use require('node-compass')(mode: 'expanded')
 app.use express.static(path.join(__dirname, 'public'))
+app.set 'mongo url', "mongodb://127.0.0.1:27017/ethics-api?slaveOk=true"
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->
@@ -42,5 +45,19 @@ app.use (err, req, res, next) ->
   res.render 'error',
     message: err.message,
     error: {}
+
+mongoOptions =
+  db:
+    w: 1
+  server:
+    poolSize: 10
+    auto_reconnect: true
+
+MongoClient.connect app.get('mongo url'), mongoOptions, (err, db) ->
+  # Load up API
+  requireFu(__dirname + '/api/v1')(app, db)
+
+  # Load up routes
+  #requireFu(__dirname + '/routes')(app, db)
 
 module.exports = app
