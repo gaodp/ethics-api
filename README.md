@@ -33,16 +33,16 @@ There are a few notable folders at the root level that you should be aware of.
 
 The following API Endpoints will eventually be implemented.
 
-- GET /api/v1/candidates/search
-  – Search for a particular candidate
-- GET /api/v1/candidates/:id
-  – Retrieve a particular candidate
-– GET /api/v1/candidates/:id/campaigns
-  – Retrieve campaigns run by a particular candidate
-- GET /api/v1/campaigns/:id
-  – Retrieve a particular campaign.
-– GET /api/v1/campaigns/:id/reports/:reportid
-  – Retrieve a particular campaign report.
+* GET /api/v1/candidates/search
+  * Search for a particular candidate
+* GET /api/v1/candidates/:id
+  * Retrieve a particular candidate
+* GET /api/v1/candidates/:id/campaigns
+  * Retrieve campaigns run by a particular candidate
+* GET /api/v1/campaigns/:id
+  * Retrieve a particular campaign.
+* GET /api/v1/campaigns/:id/reports/:reportid
+  * Retrieve a particular campaign report.
   
 ## License
 
