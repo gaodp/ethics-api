@@ -7,10 +7,11 @@ reality.
 ## Running locally
 
 Once you have a clone of this repository locally, navigate to the folder the project was cloned
-to and run `bin/www`. Like so:
+to and run the commands:
 
 ```
-$ bin/www
+$ npm install
+$ npm start
 ```
 
 That will start up the Express and load up a placeholder index page. From there you should
