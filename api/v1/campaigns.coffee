@@ -5,7 +5,7 @@ module.exports = (api, db) ->
   api.v1 = api.v1 || {}
 
   api.v1.getCampaign = (req, res) ->
-    db.collection("campaigns").find( {_id : req.params.id} ).toArray (err, results) ->
+    db.collection("campaigns").findOne( {_id : req.params.id}, (err, results) ->
       if err
         res.jsonp
           error: err
@@ -14,6 +14,7 @@ module.exports = (api, db) ->
         return
 
       res.jsonp(results)
+    )
 
   api.v1.getCampaigns = (req, res) ->
     db.collection("campaigns").find().toArray (err, results) ->
