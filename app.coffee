@@ -54,9 +54,6 @@ mongoOptions =
     auto_reconnect: true
 
 MongoClient.connect app.get('mongo url'), mongoOptions, (err, db) ->
-  # Load up API
-  #requireFu(__dirname + '/api/v1')(app, db)
-
   # Load up routes
   api = {}
   requireFu(__dirname + '/api/v1')(api, db)
