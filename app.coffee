@@ -58,6 +58,8 @@ MongoClient.connect app.get('mongo url'), mongoOptions, (err, db) ->
   #requireFu(__dirname + '/api/v1')(app, db)
 
   # Load up routes
-  requireFu(__dirname + '/routes')(app, db)
+  api = {}
+  requireFu(__dirname + '/api/v1')(api, db)
+  requireFu(__dirname + '/routes')(app, api, db)
 
 module.exports = app
