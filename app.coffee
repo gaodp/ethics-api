@@ -23,29 +23,6 @@ app.use require('node-compass')(mode: 'expanded')
 app.use express.static(path.join(__dirname, 'public'))
 app.set 'mongo url', "mongodb://127.0.0.1:27017/ethics-api?slaveOk=true"
 
-# catch 404 and forward to error handler
-# app.use (req, res, next) ->
-#   err = new Error('Not Found')
-#   err.status = 404
-#   next err
-
-# development error handler
-# will print stacktrace
-# if app.get('env') == 'development'
-#   app.use (err, req, res, next) ->
-#     res.status err.status || 500
-#     res.render 'error',
-#       message: err.message,
-#       error: err
-
-# production error handler
-# no stacktraces leaked to user
-app.use (err, req, res, next) ->
-  res.status(err.status || 500)
-  res.render 'error',
-    message: err.message,
-    error: {}
-
 mongoOptions =
   db:
     w: 1
@@ -58,5 +35,28 @@ MongoClient.connect app.get('mongo url'), mongoOptions, (err, db) ->
   api = {}
   requireFu(__dirname + '/api/v1')(api, db)
   requireFu(__dirname + '/routes')(app, api, db)
+
+  # catch 404 and forward to error handler
+  app.use (req, res, next) ->
+    err = new Error('Not Found')
+    err.status = 404
+    next err
+
+  # development error handler
+  # will print stacktrace
+  if app.get('env') == 'development'
+    app.use (err, req, res, next) ->
+      res.status err.status || 500
+      res.render 'error',
+        message: err.message,
+        error: err
+
+  # production error handler
+  # no stacktraces leaked to user
+  app.use (err, req, res, next) ->
+    res.status(err.status || 500)
+    res.render 'error',
+      message: err.message,
+      error: {}
 
 module.exports = app
