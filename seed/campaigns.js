@@ -3,7 +3,6 @@ db = conn.getDB("ethics-api");
 
 for(var i = 1; i <= 3; i ++) {
   var json = {
-    _id: i.toString(),
     candidate: {
       _id: i.toString(),
       lastName: "lastName_" + i,
