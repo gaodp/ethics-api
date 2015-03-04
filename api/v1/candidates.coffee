@@ -17,9 +17,6 @@ module.exports = (api, db) ->
     )
 
   api.v1.getCandidates = (req, res) ->
-    api.v1.search(req, res)
-
-  api.v1.search = (req, res) ->
     findCriteria = req.query || {}
     if findCriteria.nameId
       findCriteria.nameId = parseInt(findCriteria.nameId) || findCriteria.nameId
